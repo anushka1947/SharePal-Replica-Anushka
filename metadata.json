@@ -1,0 +1,6 @@
+{
+  "name": "SharePal - Gaming Gadgets on Rent",
+  "description": "Rent the latest gaming gadgets in Bangalore: PS5, Xbox Series X, Oculus Quest VR, Racing Wheels, and 100+ Games with flexible daily & weekly rent and doorstep delivery.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
