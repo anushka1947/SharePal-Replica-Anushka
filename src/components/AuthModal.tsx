@@ -8,6 +8,7 @@ interface AuthModalProps {
   currentUser: User | null;
   onLoginSuccess: (user: User) => void;
   onLogout: () => void;
+  currentCity?: string;
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({
@@ -16,6 +17,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   currentUser,
   onLoginSuccess,
   onLogout,
+  currentCity,
 }) => {
   const [step, setStep] = useState<'phone' | 'otp'>('phone');
   const [phone, setPhone] = useState('');
@@ -35,7 +37,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       name: 'Pal ' + phone.slice(-4),
       phone: phone.trim(),
       email: `user${phone.slice(-4)}@sharepal.in`,
-      city: 'Bangalore',
+      city: currentCity || 'Bangalore',
       isKycVerified: true,
     };
     onLoginSuccess(newUser);

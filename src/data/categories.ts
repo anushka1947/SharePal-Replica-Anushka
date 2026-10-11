@@ -382,23 +382,161 @@ export const OFFERS = [
   },
 ];
 
-export const BANGALORE_AREAS = [
-  'Koramangala',
-  'Indiranagar',
-  'HSR Layout',
-  'Whitefield',
-  'Bellandur',
-  'JP Nagar',
-  'Jayanagar',
-  'Electronic City',
-  'BTM Layout',
-  'Marathahalli',
-  'Malleshwaram',
-  'Hebbal',
-  'Yelahanka',
-  'Sarjapur Road',
-  'Bannerghatta Road',
-];
+export const CITY_HUBS: Record<string, string[]> = {
+  Bangalore: [
+    'Koramangala',
+    'Indiranagar',
+    'HSR Layout',
+    'Whitefield',
+    'Bellandur',
+    'JP Nagar',
+    'Jayanagar',
+    'Electronic City',
+    'BTM Layout',
+    'Marathahalli',
+    'Malleshwaram',
+    'Hebbal',
+    'Yelahanka',
+    'Sarjapur Road',
+    'Bannerghatta Road',
+  ],
+  Mumbai: [
+    'Andheri West',
+    'Bandra West',
+    'Powai',
+    'Juhu',
+    'Lower Parel',
+    'Borivali West',
+    'Dadar',
+    'Malad West',
+    'Ghatkopar',
+    'Thane West',
+    'Navi Mumbai (Vashi)',
+    'Goregaon East',
+    'Worli',
+    'Colaba',
+    'Chembur',
+  ],
+  Pune: [
+    'Baner',
+    'Kothrud',
+    'Viman Nagar',
+    'Hinjawadi',
+    'Wakad',
+    'Koregaon Park',
+    'Magarpatta City',
+    'Aundh',
+    'Kalyani Nagar',
+    'Hadapsar',
+    'Shivaji Nagar',
+    'Pimple Saudagar',
+    'Bavdhan',
+    'Kharadi',
+  ],
+  Delhi: [
+    'Connaught Place',
+    'South Extension',
+    'Hauz Khas',
+    'Saket',
+    'Dwarka Sector 12',
+    'Rohini Sector 9',
+    'Lajpat Nagar',
+    'Vasant Kunj',
+    'Karol Bagh',
+    'Janakpuri',
+    'Greater Kailash',
+    'Pitampura',
+    'Mayur Vihar',
+  ],
+  Hyderabad: [
+    'Hitec City',
+    'Gachibowli',
+    'Madhapur',
+    'Banjara Hills',
+    'Jubilee Hills',
+    'Kondapur',
+    'Kukatpally',
+    'Begumpet',
+    'Secunderabad',
+    'Ameerpet',
+    'Miyapur',
+  ],
+  Chennai: [
+    'T. Nagar',
+    'Adyar',
+    'Velachery',
+    'Anna Nagar',
+    'OMR (Thoraipakkam)',
+    'Nungambakkam',
+    'Besant Nagar',
+    'Mylapore',
+    'Porur',
+    'Guindy',
+    'Tambaram',
+  ],
+  Gurgaon: [
+    'Cyber City (DLF Phase 2)',
+    'Golf Course Road',
+    'Sohna Road',
+    'Sector 29',
+    'DLF Phase 5',
+    'Sector 56',
+    'Sushant Lok',
+    'MG Road',
+  ],
+  Noida: [
+    'Sector 18',
+    'Sector 62',
+    'Sector 137',
+    'Sector 50',
+    'Sector 76',
+    'Sector 128',
+    'Greater Noida (Knowledge Park)',
+  ],
+  Kolkata: [
+    'Salt Lake (Sector V)',
+    'New Town',
+    'Park Street',
+    'Ballygunge',
+    'South City (Jadavpur)',
+    'Alipore',
+    'Behala',
+    'Rajarhat',
+  ],
+  Faridabad: [
+    'Sector 15',
+    'Sector 16',
+    'NIT Faridabad',
+    'Green Field Colony',
+    'Greater Faridabad (Sector 81)',
+  ],
+  Ghaziabad: [
+    'Indirapuram',
+    'Vaishali',
+    'Raj Nagar Extension',
+    'Vasundhara',
+    'Crossings Republik',
+  ],
+};
+
+export const BANGALORE_AREAS = CITY_HUBS['Bangalore'];
+
+export const getCityAreas = (cityName: string): string[] => {
+  if (!cityName) return CITY_HUBS['Bangalore'];
+  const matchKey = Object.keys(CITY_HUBS).find(
+    (key) => key.toLowerCase() === cityName.toLowerCase()
+  );
+  if (matchKey && CITY_HUBS[matchKey]?.length > 0) {
+    return CITY_HUBS[matchKey];
+  }
+  return [
+    `${cityName} Central Hub`,
+    `${cityName} North Hub`,
+    `${cityName} South Hub`,
+    `${cityName} East Hub`,
+    `${cityName} West Hub`,
+  ];
+};
 
 export const FAQS = [
   {

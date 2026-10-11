@@ -7,6 +7,7 @@ interface WaitlistModalProps {
   onClose: () => void;
   product: Product | null;
   onVoteSuccess: (productId: string) => void;
+  currentCity?: string;
 }
 
 export const WaitlistModal: React.FC<WaitlistModalProps> = ({
@@ -14,6 +15,7 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
   onClose,
   product,
   onVoteSuccess,
+  currentCity,
 }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -58,7 +60,7 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
             <h3 className="text-xl font-black text-slate-900 mb-2">Vote Cast Successfully!</h3>
             <p className="text-xs text-slate-600 mb-4 leading-relaxed">
               You are vote <strong className="text-emerald-700">#{currentVotes + 1}</strong> for{' '}
-              <span className="font-bold">{product.name}</span>! When this gadget hits 1,000 votes, we will dispatch initial units in Bangalore and notify you first via WhatsApp/SMS.
+              <span className="font-bold">{product.name}</span>! When this gadget hits 1,000 votes, we will dispatch initial units in {currentCity || 'Bangalore'} and notify you first via WhatsApp/SMS.
             </p>
             <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-3 text-xs text-emerald-800 font-semibold mb-6">
               Bonus ₹200 rental credit added to your account for helping curate our inventory!
@@ -82,7 +84,7 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
               {product.name}
             </h3>
             <p className="text-xs text-slate-500 mt-1">
-              Help us bring this gadget to SharePal inventory in Bangalore.
+              Help us bring this gadget to SharePal inventory in {currentCity || 'Bangalore'}.
             </p>
 
             {/* Product Snapshot */}

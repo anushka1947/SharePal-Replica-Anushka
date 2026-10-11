@@ -29,7 +29,14 @@ import { Product, CartItem, RentalDates, Order, User, Recommendation } from './t
 
 export default function App() {
   // Application State
-  const [currentCity, setCurrentCity] = useState<string>('Bangalore');
+  const [currentCity, setCurrentCity] = useState<string>(() => {
+    try {
+      const saved = localStorage.getItem('sharepal_city');
+      return saved || 'Bangalore';
+    } catch {
+      return 'Bangalore';
+    }
+  });
   const [selectedCategory, setSelectedCategory] = useState<typeof TOP_CATEGORIES[number]>('Photography');
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -81,6 +88,14 @@ export default function App() {
   const [activeWaitlistProduct, setActiveWaitlistProduct] = useState<Product | null>(null);
 
   // Persistence Effects
+  useEffect(() => {
+    try {
+      localStorage.setItem('sharepal_city', currentCity);
+    } catch {
+      // ignore
+    }
+  }, [currentCity]);
+
   useEffect(() => {
     localStorage.setItem('sharepal_products_v2', JSON.stringify(products));
   }, [products]);
@@ -430,6 +445,7 @@ export default function App() {
         product={activeDetailProduct}
         currentDays={rentalDates?.days || 3}
         onAddToCart={handleAddToCart}
+        currentCity={currentCity}
       />
 
       <WaitlistModal
@@ -437,6 +453,7 @@ export default function App() {
         onClose={() => setActiveWaitlistProduct(null)}
         product={activeWaitlistProduct}
         onVoteSuccess={handleVoteSuccess}
+        currentCity={currentCity}
       />
 
       <CartDrawer
@@ -462,6 +479,7 @@ export default function App() {
         currentUser={currentUser}
         onLoginSuccess={(user) => setCurrentUser(user)}
         onLogout={() => setCurrentUser(null)}
+        currentCity={currentCity}
       />
 
       <SupportChatModal

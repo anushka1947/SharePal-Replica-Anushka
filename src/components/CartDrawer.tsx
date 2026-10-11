@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Trash2, ShoppingBag, ShieldCheck, Tag, ArrowRight, CheckCircle2, MapPin, Truck } from 'lucide-react';
 import { CartItem, Order, User } from '../types';
-import { BANGALORE_AREAS } from '../data/categories';
+import { getCityAreas } from '../data/categories';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -32,7 +32,18 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   const [couponError, setCouponError] = useState('');
 
   // Delivery details
-  const [selectedArea, setSelectedArea] = useState(BANGALORE_AREAS[0]);
+  const availableAreas = getCityAreas(currentCity);
+  const [selectedArea, setSelectedArea] = useState<string>(
+    () => availableAreas[0] || `${currentCity} Central Hub`
+  );
+
+  // Synchronize selectedArea whenever currentCity changes
+  useEffect(() => {
+    const areas = getCityAreas(currentCity);
+    if (!areas.includes(selectedArea)) {
+      setSelectedArea(areas[0] || `${currentCity} Central Hub`);
+    }
+  }, [currentCity, selectedArea]);
   const [addressLine, setAddressLine] = useState('');
   const [recipientName, setRecipientName] = useState(currentUser?.name || '');
   const [recipientPhone, setRecipientPhone] = useState(currentUser?.phone || '');
@@ -163,7 +174,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-blue-900 text-[11px] mb-6 text-left flex items-start gap-2">
                 <Truck className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                 <p>
-                  Our verified Bangalore delivery pal will hand over the sanitized gear, perform a live startup check on your TV, and guide you through controls.
+                  Our verified {currentCity} delivery pal will hand over the sanitized gear, perform a live startup check on your TV, and guide you through controls.
                 </p>
               </div>
 
@@ -293,14 +304,14 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
                 <div>
                   <label className="text-[10px] font-bold text-slate-500 uppercase">
-                    Bangalore Area / Hub
+                    {currentCity} Area Hub
                   </label>
                   <select
                     value={selectedArea}
                     onChange={(e) => setSelectedArea(e.target.value)}
                     className="w-full text-xs bg-white border border-slate-300 rounded-xl p-2 text-slate-800 font-semibold"
                   >
-                    {BANGALORE_AREAS.map((area) => (
+                    {availableAreas.map((area) => (
                       <option key={area} value={area}>
                         {area}
                       </option>
@@ -379,7 +390,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   </div>
                 )}
                 <div className="flex justify-between">
-                  <span>Bangalore Doorstep Delivery &amp; Pickup:</span>
+                  <span>{currentCity} Doorstep Delivery &amp; Pickup:</span>
                   <span className="font-semibold text-slate-900">
                     {deliveryFee === 0 ? <span className="text-emerald-600">FREE</span> : `₹${deliveryFee}`}
                   </span>

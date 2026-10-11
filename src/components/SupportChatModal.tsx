@@ -33,7 +33,7 @@ export const SupportChatModal: React.FC<SupportChatModalProps> = ({
 
   const quickPrompts = [
     'How does zero deposit work?',
-    'What delivery slots in Bangalore?',
+    `What delivery slots in ${currentCity}?`,
     'Can I add extra controllers & FIFA/FC?',
     'How do I extend my rental?',
   ];
@@ -58,9 +58,9 @@ export const SupportChatModal: React.FC<SupportChatModalProps> = ({
 
       const lower = text.toLowerCase();
       if (lower.includes('deposit') || lower.includes('kyc')) {
-        botReply = `SharePal offers ₹0 Security Deposit across Bangalore for all verified Indian residents. Simply upload your Aadhaar/Driving license during digital KYC checkout.`;
-      } else if (lower.includes('delivery') || lower.includes('slot') || lower.includes('bangalore')) {
-        botReply = `We offer two convenient delivery slots daily in Bangalore: Morning (10:00 AM - 1:00 PM) and Evening (4:00 PM - 8:00 PM) across Koramangala, Indiranagar, HSR, Whitefield, Bellandur, and beyond!`;
+        botReply = `SharePal offers ₹0 Security Deposit across ${currentCity} for all verified Indian residents. Simply upload your Aadhaar/Driving license during digital KYC checkout.`;
+      } else if (lower.includes('delivery') || lower.includes('slot') || lower.includes('bangalore') || lower.includes(currentCity.toLowerCase())) {
+        botReply = `We offer two convenient delivery slots daily in ${currentCity}: Morning (10:00 AM - 1:00 PM) and Evening (4:00 PM - 8:00 PM) with doorstep handover!`;
       } else if (lower.includes('controller') || lower.includes('fifa') || lower.includes('game')) {
         botReply = `All our PS5 and Xbox bundles come with 1, 2, or 4 controllers. EA Sports FC (FC 24/25), Spider-Man 2, God of War Ragnarök, and Mortal Kombat come pre-installed.`;
       } else if (lower.includes('extend')) {

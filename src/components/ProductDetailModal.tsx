@@ -8,6 +8,7 @@ interface ProductDetailModalProps {
   product: Product | null;
   currentDays: number;
   onAddToCart: (item: CartItem) => void;
+  currentCity?: string;
 }
 
 export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
@@ -16,6 +17,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   product,
   currentDays,
   onAddToCart,
+  currentCity,
 }) => {
   if (!isOpen || !product) return null;
 
@@ -252,7 +254,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             </div>
             <div className="flex items-baseline gap-2">
               <span className="text-2xl font-black text-slate-900">₹{totalRentalPrice}</span>
-              <span className="text-xs text-emerald-600 font-bold">Free Bangalore Delivery</span>
+              <span className="text-xs text-emerald-600 font-bold">Free {currentCity || 'Bangalore'} Delivery</span>
             </div>
           </div>
 
